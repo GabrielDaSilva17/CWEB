@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Cweb</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module">
+      import { loginUser, checkAuthState } from './auth.js';
+
+      // Verifica o estado de autenticação ao carregar a página
+      checkAuthState();
+
+      // Função para login no evento do formulário
+      document.addEventListener("DOMContentLoaded", () => {
+        const loginForm = document.getElementById('loginForm');
+        
+        loginForm.addEventListener('submit', async (event) => {
+          event.preventDefault();  // Impede o envio do formulário
+
+          const email = document.getElementById('email').value;
+          const password = document.getElementById('password').value;
+
+          try {
+            await loginUser(email, password); // Chama a função de login
+          } catch (error) {
+            console.error(error);
+            alert("Erro no login! Verifique suas credenciais.");
+          }
+        });
+      });
+    </script>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <img class="logo-img" src="logo.jpg" alt="Logo Cweb">
+        </div>
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Senha</label>
+                <input type="password" id="password" required>
+            </div>
+            <button type="submit" class="login-btn">Login</button>
+            <div class="register-link">
+                <p>Não tem uma conta? <a href="register.html">Registre-se</a></p>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
